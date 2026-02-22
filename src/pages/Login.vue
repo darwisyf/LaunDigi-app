@@ -51,6 +51,7 @@ const handleLogin = async () => {
 
   if (!email.value || !password.value) {
     errorMessage.value = "Email dan Password wajib diisi";
+    isLoading.value = false;
     return;
   }
 
@@ -58,6 +59,7 @@ const handleLogin = async () => {
     const data = await login(email.value, password.value);
 
     localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
 
     router.push("/dashboard");
   } catch (error) {
