@@ -47,14 +47,24 @@
         <Icon icon="line-md:sunny-outline" v-else />
       </button>
     </div>
+    <div class="fixed bottom-15 m-1">
+      <button
+        @click="logout"
+        class="text-gray-700 dark:text-gray-50 rounded-md p-2 cursor-pointer z-10 text-2xl hover:bg-red-300"
+      >
+        <Icon icon="ic:baseline-log-out" />
+      </button>
+    </div>
   </aside>
 </template>
 
 <script setup>
 import { Icon } from "@iconify/vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, pushScopeId } from "vue";
+import { useRouter } from "vue-router";
 
 const isCollapse = ref(false);
+const router = useRouter();
 
 const menus = [
   { name: "dashboard", label: "Dashboard", to: "/", icon: "uil:home" },
@@ -105,5 +115,10 @@ const toggleDarkMode = () => {
     localStorage.setItem("theme", "dark");
     isDark.value = true;
   }
+};
+
+const logout = () => {
+  localStorage.removeItem("token");
+  router.push("/login");
 };
 </script>
