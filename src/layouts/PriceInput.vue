@@ -40,7 +40,7 @@
           />
         </div>
       </div>
-      <!-- Remove -->
+      <!-- Remove Item -->
       <div class="col-span-2 flex items-end">
         <button
           v-if="services.length > 1"

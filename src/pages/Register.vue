@@ -1,4 +1,8 @@
 <template>
-  <div></div>
+  <PageTitle title="Registration Page" />
+  <RegistForm />
 </template>
-<script setup></script>
+<script setup>
+import PageTitle from "../components/PageTitle.vue";
+import RegistForm from "../layouts/RegistForm.vue";
+</script>
