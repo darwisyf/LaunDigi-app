@@ -24,6 +24,22 @@
           v-model="service.price"
         />
       </div>
+      <div>
+        <!-- Checkbox -->
+        <label class="flex items-center gap-2 mb-4">
+          <input type="checkbox" class="w-4 h-4" v-model="isChecked" />
+          <span class="text-gray-500">Apakah ada jasa express?</span>
+        </label>
+
+        <!-- Show if checked -->
+        <div v-if="isChecked">
+          <input
+            type="number"
+            placeholder="Masukkan harga express"
+            class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
+        </div>
+      </div>
       <!-- Remove -->
       <div class="col-span-2 flex items-end">
         <button
@@ -43,23 +59,6 @@
     >
       + Add Service
     </button>
-
-    <div>
-      <!-- Checkbox -->
-      <label class="flex items-center gap-2 mb-4">
-        <input type="checkbox" class="w-4 h-4" v-model="isChecked" />
-        <span class="text-gray-500">Apakah ada jasa express?</span>
-      </label>
-
-      <!-- Show if checked -->
-      <div v-if="isChecked">
-        <input
-          type="number"
-          placeholder="Masukkan harga express"
-          class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-        />
-      </div>
-    </div>
   </div>
 </template>
 <script setup>

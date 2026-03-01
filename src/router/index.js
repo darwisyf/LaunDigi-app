@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 
+import AuthLayout from "../layouts/AuthLayout.vue";
+import DefaultLayout from "../layouts/DefaultLayout.vue";
+
 import Transaction from "../pages/Transaction.vue";
 import Dashboard from "../pages/Dashboard.vue";
 import Laundries from "../pages/Laundries.vue";
@@ -8,17 +11,53 @@ import Login from "../pages/Login.vue";
 import Register from "../pages/Register.vue";
 
 const routes = [
-  { path: "/login", name: "Login", component: Login },
-  { path: "/register", name: "Register", component: Register },
   {
     path: "/",
-    name: "Dashboard",
-    component: Dashboard,
-    meta: { requiresAuth: true },
+    redirect: () => {
+      const token = localStorage.getItem("token");
+      return token ? "/dashboard" : "/login";
+    },
   },
-  { path: "/transaction", name: "Transaction", component: Transaction },
-  { path: "/laundries", name: "Laundries", component: Laundries },
-  { path: "/serviceprice", name: "ServicePrice", component: ServicePrice },
+  {
+    path: "/",
+    name: "AuthLayout",
+    component: AuthLayout,
+    children: [
+      { path: "login", name: "Login", component: Login },
+      { path: "register", name: "Register", component: Register },
+    ],
+  },
+  {
+    path: "/",
+    name: "DefaultLayout",
+    component: DefaultLayout,
+    children: [
+      {
+        path: "dashboard",
+        name: "Dashboard",
+        component: Dashboard,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "transaction",
+        name: "Transaction",
+        component: Transaction,
+        // meta: { requiresAuth: true },
+      },
+      {
+        path: "laundries",
+        name: "Laundries",
+        component: Laundries,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "serviceprice",
+        name: "ServicePrice",
+        component: ServicePrice,
+        meta: { requiresAuth: true },
+      },
+    ],
+  },
 ];
 
 const router = createRouter({
