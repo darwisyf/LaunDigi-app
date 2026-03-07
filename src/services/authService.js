@@ -1,8 +1,13 @@
-import axios from "axios";
+import api from "./api";
 
-const api = axios.create({
-  baseURL: "http://localhost:3000/",
-});
+export const register = async (data) => {
+  try {
+    const response = await api.post("/auth/register", data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const login = async (email, password) => {
   try {
