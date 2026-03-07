@@ -1,14 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import AuthLayout from "../layouts/AuthLayout.vue";
-import DefaultLayout from "../layouts/DefaultLayout.vue";
+const AuthLayout = import("../layouts/AuthLayout.vue");
+const DefaultLayout = import("../layouts/DefaultLayout.vue");
 
-import Transaction from "../pages/Transaction.vue";
-import Dashboard from "../pages/Dashboard.vue";
-import Laundries from "../pages/Laundries.vue";
-import ServicePrice from "../pages/ServicePrice.vue";
-import Login from "../pages/Login.vue";
-import Register from "../pages/Register.vue";
+const Transaction = import("../pages/Transaction.vue");
+const Dashboard = import("../pages/Dashboard.vue");
+const Laundries = import("../pages/Laundries.vue");
+const ServicePrice = import("../pages/ServicePrice.vue");
+const Login = import("../pages/Login.vue");
+const Register = import("../pages/Register.vue");
+const History = import("../pages/History.vue");
 
 const routes = [
   {
@@ -54,6 +55,12 @@ const routes = [
         path: "serviceprice",
         name: "ServicePrice",
         component: ServicePrice,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: "history",
+        name: "History",
+        component: History,
         meta: { requiresAuth: true },
       },
     ],
