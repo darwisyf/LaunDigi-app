@@ -158,6 +158,9 @@ const handleRegist = async () => {
 
     successMessage.value = "Registrasi Berhasil!";
 
+    localStorage.setItem("token", response.token);
+    localStorage.setItem("user", JSON.stringify(response.user));
+
     router.push("/dashboard");
   } catch (error) {
     errorMessage.value = error.response?.data?.message || "Register gagal";

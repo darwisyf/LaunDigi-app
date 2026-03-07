@@ -42,7 +42,7 @@ const routes = [
         path: "transaction",
         name: "Transaction",
         component: Transaction,
-        // meta: { requiresAuth: true },
+        meta: { requiresAuth: true },
       },
       {
         path: "laundries",

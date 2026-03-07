@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-primary rounded-xl border p-5 mb-6 max-w-4xl mx-auto shadow-xl">
+  <div
+    class="bg-primary dark:bg-primary-dark text-gray-950 dark:text-white rounded-xl border p-5 mb-6 max-w-4xl mx-auto shadow-xl"
+  >
     <h2 class="text-lg font-semibold mb-4">Data Pelanggan</h2>
 
     <!-- Search / Phone -->
@@ -10,7 +12,7 @@
           v-model="phone"
           type="tel"
           placeholder="08xxxxxxxxxx"
-          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-primary/30 transition hover:bg-gray-200"
+          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-primary/30 transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
           @blur="checkCustomer"
         />
         <div class="flex items-center gap-1">
@@ -31,7 +33,7 @@
           v-model="name"
           type="text"
           placeholder="Nama pelanggan"
-          class="w-full border rounded-lg px-3 py-2 transition hover:bg-gray-200"
+          class="w-full border rounded-lg px-3 py-2 transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
         />
       </div>
     </div>
