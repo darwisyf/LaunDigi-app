@@ -1,24 +1,24 @@
 <template>
-  <form class="max-w-3xl mx-auto bg-primary p-10 rounded-xl border">
+  <form class="max-w-3xl mx-auto bg-primary dark:bg-primary-dark text-gray-950 dark:text-white p-10 rounded-xl border">
     <!-- Laundries Name -->
-    <label class="block text-md my-2">Nama Laundry</label>
-    <input v-model="form.name" type="text" class="border w-full rounded p-2" />
+    <label class="block text-md my-2 ">Nama Laundry</label>
+    <input v-model="form.name" type="text" class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800" />
 
     <!-- Phone Number -->
     <label class="block text-md my-2">No HP</label>
-    <input v-model="form.phone" type="tel" class="border w-full rounded p-2" />
+    <input v-model="form.phone" type="tel" class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800" />
 
     <!-- Address -->
     <label class="block text-md my-2">Alamat</label>
     <textarea
       v-model="form.address"
       rows="3"
-      class="border w-full rounded p-2"
+      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
     />
 
     <!-- Package -->
     <label class="block text-md my-2">Package</label>
-    <select v-model="form.package" class="border w-full rounded p-2">
+    <select v-model="form.package" class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800">
       <option value="basic">Basic</option>
       <option value="pro">Pro</option>
       <option value="enterprise">Enterprise</option>
@@ -29,7 +29,7 @@
     <input
       v-model="form.activeUntil"
       type="date"
-      class="border w-full rounded p-2"
+      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
     />
 
     <!-- Save Button -->

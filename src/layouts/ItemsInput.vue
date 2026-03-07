@@ -4,14 +4,14 @@
     <div
       v-for="(item, index) in items"
       :key="index"
-      class="grid grid-cols-12 gap-4 mb-4 border p-4 rounded-lg bg-primary shadow-xl"
+      class="grid grid-cols-12 gap-4 mb-4 border p-4 rounded-lg bg-primary dark:bg-primary-dark text-gray-950 dark:text-white shadow-xl"
     >
       <!-- Layanan -->
       <div class="col-span-12 md:col-span-4">
         <label class="block text-sm mb-1">Layanan</label>
         <select
           v-model="item.serviceId"
-          class="w-full border rounded px-3 py-2 transition hover:bg-gray-200"
+          class="w-full border rounded px-3 py-2 transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
         >
           <option value="">Pilih layanan</option>
           <option
@@ -32,7 +32,7 @@
           min="0"
           step="0.1"
           v-model.number="item.weight"
-          class="w-full border rounded px-3 py-2 transition hover:bg-gray-200"
+          class="w-full border rounded px-3 py-2 transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
         />
       </div>
 
@@ -47,7 +47,7 @@
         <button
           v-if="items.length > 1"
           @click="removeItem(index)"
-          class="text-red-500 text-sm"
+          class="text-red-500 text-sm cursor-pointer"
         >
           Hapus
         </button>
@@ -67,15 +67,17 @@
       <label class="block text-sm mb-1">Jenis Order</label>
       <select
         v-model="orderType"
-        class="w-full border rounded px-3 py-2 bg-primary shadow-xl transition hover:bg-gray-200"
+        class="w-full border rounded px-3 py-2 bg-primary dark:bg-primary-dark text-gray-950 dark:text-white shadow-xl transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
       >
-        <option value="regular" class="bg-primary">Reguler</option>
-        <option value="express" class="bg-primary">Express</option>
+        <option value="regular">Reguler</option>
+        <option value="express">Express</option>
       </select>
     </div>
 
     <!-- TOTAL -->
-    <div class="border-t pt-4 space-y-2 bg-primary p-3 rounded-b-xl shadow-xl">
+    <div
+      class="border-t pt-4 space-y-2 bg-primary dark:bg-primary-dark text-gray-950 dark:text-white p-3 rounded-b-xl shadow-xl"
+    >
       <div class="flex justify-between">
         <span>Subtotal Item</span>
         <span>Rp {{ formatCurrency(itemsTotal) }}</span>

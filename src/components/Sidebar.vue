@@ -7,11 +7,8 @@
   >
     <!-- Logo / Hamburger -->
     <div class="flex items-center justify-between p-4">
-      <span
-        v-if="!isCollapse"
-        class="text-xl font-bold text-gray-700 dark:text-gray-50"
-      >
-        LaunDigi
+      <span v-if="!isCollapse">
+        <img :src="logo" alt="Laundigi Logo" class="h-8 w-40 object-cover" />
       </span>
 
       <button
@@ -60,8 +57,9 @@
 
 <script setup>
 import { Icon } from "@iconify/vue";
-import { ref, onMounted, pushScopeId } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import logo from "../assets/icons/LaunDigi_Logo.webp";
 
 const isCollapse = ref(false);
 const router = useRouter();

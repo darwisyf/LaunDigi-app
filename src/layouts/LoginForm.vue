@@ -61,10 +61,10 @@ const handleLogin = async () => {
   }
 
   try {
-    const data = await login(email.value, password.value);
+    const response = await login(email.value, password.value);
 
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.user));
+    localStorage.setItem("token", response.token);
+    localStorage.setItem("user", JSON.stringify(response.user));
 
     router.push("/dashboard");
   } catch (error) {

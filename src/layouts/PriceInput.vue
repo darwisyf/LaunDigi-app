@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-primary max-w-4xl mx-auto p-4 rounded-lg">
+  <div class="bg-primary dark:bg-primary-dark text-gray-950 dark:text-white max-w-4xl mx-auto p-4 rounded-lg">
     <div
       class="border rounded-md p-2 grid grid-cols-2 items-center gap-2 my-3"
       v-for="(service, index) in services"
@@ -10,7 +10,7 @@
         <label for="" class="block text-md my-2">Nama Layanan</label>
         <input
           type="text"
-          class="border w-full rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          class="border w-full rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
           v-model="service.name"
           placeholder="Contoh: Cuci + Setrika"
         />
@@ -20,7 +20,7 @@
         <label for="" class="block text-md my-2 none">Harga Layanan</label>
         <input
           type="number"
-          class="border w-full rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          class="border w-full rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
           v-model="service.price"
         />
       </div>
@@ -28,15 +28,15 @@
         <!-- Checkbox -->
         <label class="flex items-center gap-2 mb-4">
           <input type="checkbox" class="w-4 h-4" v-model="isChecked" />
-          <span class="text-gray-500">Apakah ada jasa express?</span>
+          <span class="text-gray-500 dark:text-gray-300">Apakah ada jasa express?</span>
         </label>
 
         <!-- Show if checked -->
         <div v-if="isChecked">
           <input
             type="number"
-            placeholder="Masukkan harga express"
-            class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            placeholder="Masukkan tambahan biaya jasa express"
+            class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:outline-none hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
           />
         </div>
       </div>
