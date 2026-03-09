@@ -1,19 +1,16 @@
-import { errorMessages } from "vue/compiler-sfc";
 import api from "./api";
 
-export const createOrder = async () => {
+export const createOrder = (data) => {
   try {
-    const response = await api.post("/", data);
-    return response.data;
+    return api.post("/orders", data);
   } catch (error) {
     throw error;
   }
 };
 
-export const getOrder = async () => {
+export const getOrder = () => {
   try {
-    const response = await api.get("/", data);
-    return response.data;
+    return api.get("/orders");
   } catch (error) {
     throw error;
   }

@@ -9,48 +9,29 @@
       <div>
         <label class="block text-sm mb-1">No HP</label>
         <input
-          v-model="phone"
+          v-model="datas.phone"
           type="tel"
           placeholder="08xxxxxxxxxx"
           class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-primary/30 transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
-          @blur="checkCustomer"
         />
-        <div class="flex items-center gap-1">
-          <p v-if="isExisting" class="text-xs text-green-600 mt-1">
-            Pelanggan ditemukan
-          </p>
-          <Icon
-            v-if="isExisting"
-            icon="ic:round-check"
-            class="text-green-600 mt-1"
-          />
-        </div>
       </div>
 
       <div>
         <label class="block text-sm mb-1">Nama Pelanggan</label>
         <input
-          v-model="name"
+          v-model="datas.name"
           type="text"
           placeholder="Nama pelanggan"
           class="w-full border rounded-lg px-3 py-2 transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
         />
       </div>
     </div>
-
-    <!-- Info -->
-    <div
-      v-if="isExisting"
-      class="text-sm bg-green-50 border border-green-200 text-green-700 rounded-lg p-3"
-    >
-      Pelanggan lama — data otomatis terisi
-    </div>
   </div>
 
   <div class="max-w-4xl mx-auto">
     <!-- ITEMS -->
     <div
-      v-for="(item, index) in items"
+      v-for="(item, index) in datas.items"
       :key="index"
       class="grid grid-cols-12 gap-4 mb-4 border p-4 rounded-lg bg-primary dark:bg-primary-dark text-gray-950 dark:text-white shadow-xl"
     >
@@ -61,7 +42,7 @@
           v-model="item.serviceId"
           class="w-full border rounded px-3 py-2 transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
         >
-          <option value="">Pilih layanan</option>
+          <option value="" disabled>Pilih layanan</option>
           <option
             v-for="service in services"
             :key="service.id"
@@ -93,7 +74,7 @@
       <!-- Remove -->
       <div class="col-span-2 flex items-end">
         <button
-          v-if="items.length > 1"
+          v-if="datas.items.length > 1"
           @click="removeItem(index)"
           class="text-red-500 text-sm cursor-pointer"
         >
@@ -114,11 +95,11 @@
     <div class="mb-6">
       <label class="block text-sm mb-1">Jenis Order</label>
       <select
-        v-model="orderType"
+        v-model="datas.orderType"
         class="w-full border rounded px-3 py-2 bg-primary dark:bg-primary-dark text-gray-950 dark:text-white shadow-xl transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
       >
-        <option value="regular">Reguler</option>
-        <option value="express">Express</option>
+        <option value="REGULER">Reguler</option>
+        <option value="EXPRESS">Express</option>
       </select>
     </div>
 
@@ -132,7 +113,7 @@
       </div>
 
       <div
-        v-if="orderType === 'express'"
+        v-if="datas.orderType === 'EXPRESS'"
         class="flex justify-between text-orange-600"
       >
         <span>Biaya Express</span>
@@ -145,54 +126,70 @@
       </div>
     </div>
   </div>
+
+  <div class="max-w-4xl mx-auto mt-8 flex justify-end items-center">
+    <div
+      v-if="successMessage"
+      class="flex justify-center items-center gap-1 mr-4 text-green-500"
+    >
+      <span>{{ successMessage }}</span>
+      <Icon icon="line-md:confirm" class="text-xl" />
+    </div>
+
+    <div
+      v-if="errorMessage"
+      class="flex justify-center items-center gap-1 mr-4 text-red-500"
+    >
+      <span>{{ errorMessage }}</span>
+      <Icon icon="line-md:close" class="text-xl" />
+    </div>
+
+    <div>
+      <button
+        class="bg-blue-400 hover:bg-blue-500 transition cursor-pointer text-white rounded-sm px-8 py-2 shadow-md"
+        @click="handleOrder"
+      >
+        Simpan
+      </button>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { Icon } from "@iconify/vue";
 import { reactive, computed, ref } from "vue";
+import { createOrder } from "../services/orderService";
 
-const phone = ref("");
-const name = ref("");
-const isExisting = ref(false);
-
-const orderType = ref("reguler");
 const EXPRESS_FEE = 3000;
 
-/* Dummy check (nanti dari API) */
-const checkCustomer = () => {
-  if (phone.value === "08123456789") {
-    name.value = "Budi Santoso";
-    isExisting.value = true;
-  } else {
-    isExisting.value = false;
-  }
-};
-
-/* Dummy data (nanti dari API) */
+// Dummy data (nanti dari API)
 const services = [
   { id: 1, name: "Cuci Kering", price: 6000 },
   { id: 2, name: "Cuci + Setrika", price: 8000 },
   { id: 3, name: "Setrika Saja", price: 5000 },
 ];
 
-const items = reactive([
-  {
-    serviceId: "",
-    weight: 0,
-    type: "regular",
-  },
-]);
+const datas = reactive({
+  phone: "",
+  name: "",
+  items: [
+    {
+      serviceId: "",
+      weight: 0,
+    },
+  ],
+  orderType: "REGULER",
+});
 
 const addItem = () => {
-  items.push({
+  datas.items.push({
     serviceId: "",
     weight: 0,
-    type: "regular",
   });
 };
 
 const removeItem = (index) => {
-  items.splice(index, 1);
+  datas.items.splice(index, 1);
 };
 
 const getService = (id) => {
@@ -207,11 +204,11 @@ const itemSubtotal = (item) => {
 };
 
 const itemsTotal = computed(() =>
-  items.reduce((total, item) => total + itemSubtotal(item), 0),
+  datas.items.reduce((total, item) => total + itemSubtotal(item), 0),
 );
 
 const expressFee = computed(() =>
-  orderType.value === "express" ? EXPRESS_FEE : 0,
+  datas.orderType === "EXPRESS" ? EXPRESS_FEE : 0,
 );
 
 const grandTotal = computed(() => itemsTotal.value + expressFee.value);
@@ -220,13 +217,60 @@ const formatCurrency = (number) => {
   return number.toLocaleString("id-ID");
 };
 
-defineExpose({
-  phone,
-  name,
-  isExisting,
-  items,
-  orderType,
-  itemsTotal,
-  grandTotal,
-});
+const payload = {
+  package_type: datas.orderType,
+  customer: {
+    name: datas.name,
+    phone: datas.phone,
+  },
+  items: datas.items.map((item) => ({
+    service_id: item.serviceId,
+    weight: item.weight,
+  })),
+};
+
+const successMessage = ref("");
+const errorMessage = ref("");
+const isLoading = ref(false);
+
+const handleOrder = async () => {
+  successMessage.value = "";
+  errorMessage.value = "";
+  isLoading.value = true;
+
+  if (!datas.phone || !datas.name) {
+    errorMessage.value = "Phone and name are required";
+    return;
+  }
+
+  if (datas.phone.length < 10) {
+    errorMessage.value = "Invalid phone number";
+    return;
+  }
+
+  if (!datas.orderType) {
+    errorMessage.value = "Please select order type";
+    return;
+  }
+
+  const invalidItem = datas.items.some(
+    (item) => !item.serviceId || item.weight <= 0,
+  );
+
+  if (invalidItem) {
+    errorMessage.value = "Please complete all items";
+    return;
+  }
+
+  try {
+    const response = await createOrder(payload);
+
+    successMessage.value = "Order saved";
+  } catch (error) {
+    errorMessage.value =
+      error.response?.data?.message || "Something went wrong, please try again";
+  } finally {
+    isLoading.value = false;
+  }
+};
 </script>

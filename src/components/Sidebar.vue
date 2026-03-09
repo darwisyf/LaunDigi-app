@@ -1,20 +1,25 @@
 <template>
   <aside
     :class="[
-      'bg-primary dark:bg-primary-dark border-r border-gray-200 dark:border-slate-700 p-4 transition-all duration-300 relative',
+      'bg-primary dark:bg-primary-dark border-r border-gray-200 dark:border-slate-700 p-4 transition-all duration-300',
       isCollapse ? 'w-22' : 'w-64',
     ]"
   >
-    <div class="fixed">
+    <div
+      :class="[
+        'fixed min-h-full transition-all duration-300',
+        isCollapse ? 'w-14' : 'w-56',
+      ]"
+    >
       <!-- Logo / Hamburger -->
-      <div class="flex items-center justify-between p-4">
+      <div class="flex items-center justify-between mt-2 pb-4">
         <span v-if="!isCollapse">
           <img :src="logo" alt="Laundigi Logo" class="h-8 w-40 object-cover" />
         </span>
 
         <button
           @click="toggleSidebar"
-          class="items-center text-gray-700 dark:text-gray-50 text-xl cursor-pointer"
+          class="items-center text-gray-700 dark:text-gray-50 text-xl cursor-pointer ml-4"
         >
           <Icon icon="line-md:menu-fold-right" v-if="isCollapse" />
           <Icon icon="line-md:menu-fold-left" v-else />

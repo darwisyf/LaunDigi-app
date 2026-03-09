@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-const AuthLayout = import("../layouts/AuthLayout.vue");
-const DefaultLayout = import("../layouts/DefaultLayout.vue");
+const AuthLayout = () => import("../layouts/AuthLayout.vue");
+const DefaultLayout = () => import("../layouts/DefaultLayout.vue");
 
-const Transaction = import("../pages/Transaction.vue");
-const Dashboard = import("../pages/Dashboard.vue");
-const Laundries = import("../pages/Laundries.vue");
-const ServicePrice = import("../pages/ServicePrice.vue");
-const Login = import("../pages/Login.vue");
-const Register = import("../pages/Register.vue");
-const History = import("../pages/History.vue");
+const Transaction = () => import("../pages/Transaction.vue");
+const Dashboard = () => import("../pages/Dashboard.vue");
+const Laundries = () => import("../pages/Laundries.vue");
+const ServicePrice = () => import("../pages/ServicePrice.vue");
+const Login = () => import("../pages/Login.vue");
+const Register = () => import("../pages/Register.vue");
+const History = () => import("../pages/History.vue");
 
 const routes = [
   {
