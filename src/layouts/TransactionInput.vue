@@ -48,7 +48,7 @@
             :key="service.id"
             :value="service.id"
           >
-            {{ service.name }} (Rp {{ service.price }}/kg)
+            {{ service.name }} (Rp {{ service.price_per_kg }}/kg)
           </option>
         </select>
       </div>
@@ -157,18 +157,21 @@
 
 <script setup>
 import { Icon } from "@iconify/vue";
-import { reactive, computed, ref } from "vue";
+import { reactive, computed, ref, onMounted } from "vue";
 import { createOrder } from "../services/orderService";
+import { getService } from "../services/serviceServices";
+
+const services = ref([]);
+onMounted(async () => {
+  try {
+    const response = await getService();
+    services.value = response.data;
+  } catch (error) {
+    console.error("Kesalahan berpikir ketika fetch service", error);
+  }
+})
 
 const EXPRESS_FEE = 3000;
-
-// Dummy data (nanti dari API)
-const services = [
-  { id: 1, name: "Cuci Kering", price: 6000 },
-  { id: 2, name: "Cuci + Setrika", price: 8000 },
-  { id: 3, name: "Setrika Saja", price: 5000 },
-];
-
 const datas = reactive({
   phone: "",
   name: "",
@@ -192,15 +195,15 @@ const removeItem = (index) => {
   datas.items.splice(index, 1);
 };
 
-const getService = (id) => {
-  return services.find((s) => s.id === id);
+const findService = (id) => {
+  return services.value.find((s) => s.id === id);
 };
 
 const itemSubtotal = (item) => {
-  const service = getService(item.serviceId);
+  const service = findService(item.serviceId);
   if (!service || item.weight <= 0) return 0;
 
-  return service.price * item.weight;
+  return service.price_per_kg * item.weight;
 };
 
 const itemsTotal = computed(() =>
@@ -214,19 +217,7 @@ const expressFee = computed(() =>
 const grandTotal = computed(() => itemsTotal.value + expressFee.value);
 
 const formatCurrency = (number) => {
-  return number.toLocaleString("id-ID");
-};
-
-const payload = {
-  package_type: datas.orderType,
-  customer: {
-    name: datas.name,
-    phone: datas.phone,
-  },
-  items: datas.items.map((item) => ({
-    service_id: item.serviceId,
-    weight: item.weight,
-  })),
+  return Number(number || 0).toLocaleString("id-ID");
 };
 
 const successMessage = ref("");
@@ -259,12 +250,31 @@ const handleOrder = async () => {
 
   if (invalidItem) {
     errorMessage.value = "Please complete all items";
+    isLoading.value = false;
     return;
   }
+  
+  // Payload taro dalem handler aja dawgs, karena kalo diluar handler dia cuman jalan ketika component pertama kali dirender...
+  const payload = {
+    package_type: datas.orderType,
+    customer: {
+      name: datas.name,
+      phone: datas.phone,
+    },
+    items: datas.items.map((item) => ({
+      service_id: item.serviceId,
+      weight: item.weight,
+    })),
+  };
 
   try {
-    const response = await createOrder(payload);
+    await createOrder(payload);
 
+    datas.phone = "";
+    datas.name = "";
+    datas.orderType = "REGULER";
+    datas.items = [{ serviceId: "", weight: 0 }];
+    
     successMessage.value = "Order saved";
   } catch (error) {
     errorMessage.value =
