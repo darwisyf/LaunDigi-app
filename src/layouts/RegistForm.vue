@@ -3,7 +3,7 @@
     <div class="bg-white p-6 rounded-xl max-w-120">
       <h1 class="text-xl font-bold text-center">Register</h1>
       <form @submit.prevent="handleRegist" class="space-y-4">
-        <label for="">Your Name</label>
+        <label>Your Name</label>
         <input
           v-model="form.name"
           type="text"
@@ -11,7 +11,7 @@
           class="w-full border p-2 rounded"
         />
 
-        <label for="">Your Email</label>
+        <label>Your Email</label>
         <input
           v-model="form.email"
           type="email"
@@ -19,7 +19,7 @@
           class="w-full border p-2 rounded"
         />
 
-        <label for="">Role</label>
+        <label>Role</label>
         <select
           name=""
           id=""
@@ -31,7 +31,7 @@
           <option value="admin">Admin</option>
         </select>
 
-        <label for="">Your Laundry Name</label>
+        <label>Your Laundry Name</label>
         <input
           v-model="form.laundry_name"
           type="text"
@@ -39,7 +39,7 @@
           class="w-full border p-2 rounded"
         />
 
-        <label for="">Package</label>
+        <label>Package</label>
         <select
           name=""
           id=""
@@ -52,7 +52,7 @@
           <option value="enterprise">Enterprise</option>
         </select>
 
-        <label for="">Address</label>
+        <label>Address</label>
         <textarea
           name=""
           id=""
@@ -61,7 +61,7 @@
           v-model="form.address"
         ></textarea>
 
-        <label for="">No. HP</label>
+        <label>No. HP</label>
         <input
           type="tel"
           name=""
@@ -70,7 +70,7 @@
           v-model="form.phone"
         />
 
-        <label for="">Password</label>
+        <label>Password</label>
         <input
           v-model="form.password"
           type="password"
@@ -151,6 +151,7 @@ const handleRegist = async () => {
 
   if (form.phone.length < 10) {
     errorMessage.value = "Invalid phone number";
+    return;
   }
 
   try {
