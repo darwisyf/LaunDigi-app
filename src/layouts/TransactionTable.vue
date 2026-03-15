@@ -17,9 +17,9 @@
         <td>{{ trx.name }}</td>
         <td>{{ trx.phone }}</td>
         <td>{{ trx.package_type }}</td>
-        <td>{{ trx.total_price }}</td>
+        <td>{{ formatCurrency(trx.total_price) }}</td>
         <td>{{ trx.status }}</td>
-        <td>{{ trx.received_at }}</td>
+        <td>{{ formatDate(trx.received_at) }}</td>
       </tr>
     </tbody>
     <tbody
@@ -40,6 +40,8 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { getOrder } from "../services/orderService";
+import { formatDate } from "../utils/formatDate.js";
+import { formatCurrency } from "../utils/formatCurrency.js";
 
 const transact = ref([]);
 const errorMessage = ref("");
