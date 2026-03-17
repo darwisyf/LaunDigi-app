@@ -1,6 +1,9 @@
 <template>
   <div class="flex items-center justify-center min-h-1/2">
-    <div class="bg-white p-6 rounded-xl max-w-120 space-y-4">
+    <form
+      @submit.prevent="handleLogin"
+      class="bg-white p-6 rounded-xl max-w-120 space-y-4"
+    >
       <h1 class="text-xl font-bold text-center">Login</h1>
 
       <input
@@ -25,7 +28,7 @@
       </p>
 
       <button
-        @click="handleLogin"
+        type="submit"
         class="w-full bg-blue-400 hover:bg-blue-500 text-white transition cursor-pointer py-2 rounded font-semibold"
       >
         Login
@@ -35,7 +38,7 @@
         Belum punya akun?
         <a href="/register" class="hover:underline">Register</a>
       </p>
-    </div>
+    </form>
   </div>
 </template>
 <script setup>

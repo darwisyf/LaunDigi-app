@@ -1,24 +1,37 @@
 <template>
-  <form class="max-w-3xl mx-auto bg-primary dark:bg-primary-dark text-gray-950 dark:text-white p-10 rounded-xl border">
+  <form
+    class="max-w-3xl mx-auto bg-primary dark:bg-primary-dark text-gray-950 dark:text-white p-10 rounded-xl border"
+  >
     <!-- Laundries Name -->
-    <label class="block text-md my-2 ">Nama Laundry</label>
-    <input v-model="form.name" type="text" class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800" />
+    <label class="block text-md my-2">Nama Laundry</label>
+    <input
+      v-model="form.name"
+      type="text"
+      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800 transition"
+    />
 
     <!-- Phone Number -->
     <label class="block text-md my-2">No HP</label>
-    <input v-model="form.phone" type="tel" class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800" />
+    <input
+      v-model="form.phone"
+      type="tel"
+      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800 transition"
+    />
 
     <!-- Address -->
     <label class="block text-md my-2">Alamat</label>
     <textarea
       v-model="form.address"
       rows="3"
-      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
+      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800 transition"
     />
 
     <!-- Package -->
     <label class="block text-md my-2">Package</label>
-    <select v-model="form.package" class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800">
+    <select
+      v-model="form.package"
+      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800 transition"
+    >
       <option value="basic">Basic</option>
       <option value="pro">Pro</option>
       <option value="enterprise">Enterprise</option>
@@ -29,11 +42,14 @@
     <input
       v-model="form.activeUntil"
       type="date"
-      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
+      class="border w-full rounded p-2 hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800 transition"
     />
 
     <!-- Save Button -->
-    <button type="submit" class="bg-blue-400 px-5 py-2 mt-5 rounded-md">
+    <button
+      type="submit"
+      class="bg-blue-400 hover:bg-blue-500 transition cursor-pointer text-white rounded-sm px-8 py-2 shadow-md mt-4"
+    >
       Save
     </button>
   </form>
