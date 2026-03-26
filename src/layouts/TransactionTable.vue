@@ -1,6 +1,6 @@
 <template>
   <table class="min-w-full">
-    <thead class="border text-gray-800 dark:text-primary">
+    <thead class="border text-gray-800 dark:text-primary bg-white">
       <tr>
         <th>id</th>
         <th>Name</th>

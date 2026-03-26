@@ -54,7 +54,7 @@
       </div>
 
       <!-- Berat -->
-      <div class="col-span-6 md:col-span-4">
+      <div class="col-span-6 md:col-span-2">
         <label class="block text-sm mb-1">Berat (kg)</label>
         <input
           type="number"
@@ -63,6 +63,18 @@
           v-model.number="item.weight"
           class="w-full border rounded px-3 py-2 transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
         />
+      </div>
+
+      <!-- Order Type -->
+      <div class="col-span-6 md:col-span-2">
+        <label class="block text-sm mb-1">Jenis Order</label>
+        <select
+          v-model="datas.orderType"
+          class="w-full border rounded px-3 py-2 bg-primary dark:bg-primary-dark text-gray-950 dark:text-white shadow-xl transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
+        >
+          <option value="REGULER">Reguler</option>
+          <option value="EXPRESS">Express</option>
+        </select>
       </div>
 
       <!-- Subtotal -->
@@ -90,18 +102,6 @@
     >
       + Tambah Item
     </button>
-
-    <!-- ORDER TYPE -->
-    <div class="mb-6">
-      <label class="block text-sm mb-1">Jenis Order</label>
-      <select
-        v-model="datas.orderType"
-        class="w-full border rounded px-3 py-2 bg-primary dark:bg-primary-dark text-gray-950 dark:text-white shadow-xl transition hover:bg-gray-300 dark:hover:bg-indigo-800 dark:focus:bg-indigo-800"
-      >
-        <option value="REGULER">Reguler</option>
-        <option value="EXPRESS">Express</option>
-      </select>
-    </div>
 
     <!-- TOTAL -->
     <div
@@ -169,7 +169,7 @@ onMounted(async () => {
   } catch (error) {
     console.error("Kesalahan berpikir ketika fetch service", error);
   }
-})
+});
 
 const EXPRESS_FEE = 3000;
 const datas = reactive({
@@ -253,7 +253,7 @@ const handleOrder = async () => {
     isLoading.value = false;
     return;
   }
-  
+
   // Payload taro dalem handler aja dawgs, karena kalo diluar handler dia cuman jalan ketika component pertama kali dirender...
   const payload = {
     package_type: datas.orderType,
@@ -274,7 +274,7 @@ const handleOrder = async () => {
     datas.name = "";
     datas.orderType = "REGULER";
     datas.items = [{ serviceId: "", weight: 0 }];
-    
+
     successMessage.value = "Order saved";
   } catch (error) {
     errorMessage.value =
